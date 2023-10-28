@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo</title>
+</head>
+<body>
+    <div>
+        <h2>TODO App</h2>
+    </div>
+    <div>
+        <form action="/add-task" method="post">
+            
+            <div>
+                <label for="description" class="block-label">Description</label>
+                <input id="description" type="text" placeholder="What do you need to do?" name="description" required>
+            </div>
+            <div>
+                <label for="category" class="block-label">Category</label>
+                <select name="category" id="category" required>
+                    <option value="choose a category" selected>Choose a Category</option>
+                    <option value="personal">Personal</option>
+                    <option value="school">School</option>
+                    <option value="work">Work</option>
+                    <option value="home">Home</option>
+                </select>
+            </div>
+            <div>
+                <label for="date">Choose Date</label>
+                <input id="date" type="date" name="date" required>
+            </div>
+            <div>
+                <button type="submit"> Add to task</button>
+                <button type="reset"> Reset </button>
+                <a href="/delete-task"><button type="button">Delete The task</button></a>
+            </div>
+            
+        </form>
+        <div>
+            <ul>
+                <% for (let i=0 ; i<taskList.length;i++) {%>
+                    <li id="<%= taskList[i]._id %>">
+                        <div>
+                            <span> <%= taskList[i].description %> </span>
+                        </div>
+                        <div>
+                            <span> <%= taskList[i].category %> </span>
+                        </div>
+                        <div>
+                            <span> <%= taskList[i].date %> </span>
+                        </div>
+                    </li>
+                    <%}
+                %>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
