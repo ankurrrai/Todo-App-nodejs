@@ -5,6 +5,9 @@ const port =8000;
 // setup the to url encoded
 app.use(express.urlencoded());
 
+// setup the static file
+app.use(express.static('Assest'));
+
 // set up view engine
 app.set('view-engine','ejs');
 app.set('views','./views');
@@ -13,8 +16,12 @@ app.set('views','./views');
 const db=require('./config/mongoose');
 // const Tasks=require('./models/todo')
 
+
+
 // set up the routes 
 app.use('/',require('./routes/index'));
+
+
 
 
 

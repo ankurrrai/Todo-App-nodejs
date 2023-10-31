@@ -17,7 +17,9 @@ module.exports.addtask=function(req,res){
     Tasks.create({
         description:req.body.description,
         category:req.body.category,
-        date:req.body.date
+        date:req.body.date,
+        checked:false
+
     }).then(function(newTask){
         console.log(`a new task Added : ${newTask}`);
         return res.redirect('back');
@@ -26,6 +28,16 @@ module.exports.addtask=function(req,res){
     });
 
 };
+
+module.exports.deleteTask=function(req,res){
+    let id=req.query.id;
+    Tasks.deleteOne( {_id : id} ).then(function(){
+        return res.redirect('back');
+    }).catch(function(err){
+        console.log('error while delete from db', err);
+     });
+     
+}
 
 
 

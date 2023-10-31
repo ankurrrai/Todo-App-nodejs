@@ -4,57 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo</title>
+    <!-- imported style -->
+    <link rel="icon" href="/icon/list-solid.svg">
+    <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
-    <div>
-        <h2>TODO App</h2>
-    </div>
-    <div>
-        <form action="/add-task" method="post">
+   
+    <div id="task-collection">
+        <form action="/add-task" method="post" id="form-post">
             
-            <div>
+            <div id="header">
+                <h1>TODO App</h1>
+            </div>
+
+            <div id="description-box">
                 <label for="description" class="block-label">Description</label>
                 <input id="description" type="text" placeholder="What do you need to do?" name="description" required>
             </div>
-            <div>
-                <label for="category" class="block-label">Category</label>
-                <select name="category" id="category" required>
-                    <option value="choose a category" selected>Choose a Category</option>
-                    <option value="personal">Personal</option>
-                    <option value="school">School</option>
-                    <option value="work">Work</option>
-                    <option value="home">Home</option>
-                </select>
+            <div id="ct-date">
+                <span class="category-date">
+                    <label for="category" class="block-label">Category</label>
+                    <select name="category" id="category" required>
+                        <option value="" selected>Choose a Category</option>
+                        <option value="personal">Personal</option>
+                        <option value="school">School</option>
+                        <option value="work">Work</option>
+                        <option value="home">Home</option>
+                    </select>
+
+                </span>
+                <span class="category-date">
+                    <label for="date">Choose Date</label>
+                    <input id="date" type="date" name="date" required>
+                </span>
+
             </div>
-            <div>
-                <label for="date">Choose Date</label>
-                <input id="date" type="date" name="date" required>
-            </div>
-            <div>
-                <button type="submit"> Add to task</button>
-                <button type="reset"> Reset </button>
-                <a href="/delete-task"><button type="button">Delete The task</button></a>
+            <div id="buttons">
+                <button type="submit" class="buttons" style="background-color: rgb(44, 41, 41);"> Add to task</button>
+                <button type="reset" class="buttons" style="background-color: red;"> Reset </button>
             </div>
             
         </form>
-        <div>
+
+        <% 
+            if (taskList.length>0) {%>
+                <div id="total-task">
+                    <span>Total Task : <%= taskList.length %> </span>
+                </div>
+            <%}        
+        %>
+
+        <div id="list-content">
+
             <ul>
                 <% for (let i=0 ; i<taskList.length;i++) {%>
                     <li id="<%= taskList[i]._id %>">
-                        <div>
-                            <span> <%= taskList[i].description %> </span>
+                         
+                        <input class="checkbox" type="checkbox" id="checkbox-<%= taskList[i]._id %>">
+                        <label for="checkbox-<%= taskList[i]._id %>" class="list-description" >
+                            <h3> <%= taskList[i].description %> </h3>
+                            <div> <i class="fa-solid fa-calendar-days"></i> <span><%= taskList[i].date %></span> </div>
+                        </label>
+                        <div class=" list-category width-10 <%= taskList[i].category %>">
+                            <span> <%= taskList[i].category.toUpperCase() %></span>
                         </div>
-                        <div>
-                            <span> <%= taskList[i].category %> </span>
+                        <div class="delete" class="width-10">
+                            
+                            <a href="/delete-task/?id=<%= taskList[i]._id  %>">
+                                <i class="fa-solid fa-trash"></i> 
+                            </a>
                         </div>
-                        <div>
-                            <span> <%= taskList[i].date %> </span>
-                        </div>
+
                     </li>
                     <%}
                 %>
             </ul>
         </div>
+          
     </div>
+    <script src="https://kit.fontawesome.com/0498cfb1c8.js" crossorigin="anonymous"></script
 </body>
 </html>
